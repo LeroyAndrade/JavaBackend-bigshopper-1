@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+</head>
+<body>
+<h1>What API call to test? </h1>
+<h2>Should work:</h2>
+<ul>
+    <li>
+        <a href="/restservices/list">See all lists</a>
+    </li>
+    <li>
+        <a href="/restservices/list/initialList">See the first list</a>
+    </li>
+    <li>
+        <a href="/restservices/list/anotherList">See the other list</a>
+    </li>
+    <li>
+        <a href="/restservices/shopper">See all Shoppers</a>
+    </li>
+    <li>
+        <a href="/restservices/shopper/Dum-Dum">See all lists belonging to
+            Dum-Dum</a>
+    </li>
+    <li>
+        <a href="/restservices/product">See all Products</a>
+    </li>
+</ul>
+<h2>Should give clean error message</h2>
+<ul>
+    <li>
+        <a href="/restservices/list/nonExistingList">See a non existent list</a>
+    </li>
+    <li>
+        <a href="/restservices/shopper/Gum-Gum">See all lists belonging to a
+            non-existent shopper</a>
+    </li>
+</ul>
+<!-- your POST form here -->
+</body>
+</html>
