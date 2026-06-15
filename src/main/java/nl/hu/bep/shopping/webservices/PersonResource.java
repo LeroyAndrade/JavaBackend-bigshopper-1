@@ -9,52 +9,45 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
 import nl.hu.bep.shopping.model.Shop;
 import nl.hu.bep.shopping.model.Shopper;
 import nl.hu.bep.shopping.model.ShoppingList;
 
-//Voorkom loops
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
+import java.util.Map;
 
 @Path("shopper")
 public class PersonResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getShoppers() {
+    public Response getShoppers() {
         Shop shop = Shop.getShop();
-        JsonArrayBuilder jab = Json.createArrayBuilder();
 
-        for (Shopper p : shop.getAllPersons()) {
-            JsonObjectBuilder job = Json.createObjectBuilder();
-            job.add("name", p.getName());
-            job.add("numberOfLists", p.getAmountOfLists());
-            jab.add(job);
+        if (shop == null){
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(Map.of("error", "ShoppingLists not found"))
+                    .build();
         }
-
-        JsonArray array = jab.build();
-        return array.toString();
-
+        return Response.ok(shop).build();
     }
 
     @GET
     @Path("{name}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getShoppingListsFromPerson(@PathParam("name") String name) {
+    public Response getShoppingListsFromPerson(@PathParam("name") String name) {
         Shop shop = Shop.getShop();
-        JsonArrayBuilder jab = Json.createArrayBuilder();
+
         List<ShoppingList> allListsFromPerson = shop.getListFromPerson(name); //warning: might return null!
-        if (allListsFromPerson == null)
-            return Json.createObjectBuilder()
-                    .add("error", "No owner with that name appearantly")
-                    .build()
-                    .toString();
-        else
-            allListsFromPerson.forEach(
-                    sl -> jab.add(
-                            Json.createObjectBuilder()
-                                    .add("name", sl.getName())));
-        return jab.build().toString();
+
+        if (allListsFromPerson == null){
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(Map.of("Error", "No owner with that name appearantly"))
+                    .build();
+        }
+         return Response.ok(allListsFromPerson).build();
     }
 }

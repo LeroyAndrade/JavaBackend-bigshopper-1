@@ -6,8 +6,13 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import nl.hu.bep.shopping.model.Product;
 import nl.hu.bep.shopping.model.Shop;
 
+import java.util.List;
+import java.util.Map;
 
 
 @Path("product")
@@ -15,11 +20,14 @@ public class ProductResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getProducts() {
-        JsonArrayBuilder jab = Json.createArrayBuilder();
-        //tip: oneliners seem awesome, but what part exactly gives us the error if any occurs on line 23?
-        Shop.getShop().getAllProducts().forEach(p-> jab.add(Json.createObjectBuilder().add("name", p.getName())));
-        return jab.build().toString();
+    public Response getProducts() {
 
+        List<Product> product =Shop.getShop().getAllProducts();
+        if (product == null) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(Map.of("error", "ShoppingLists not found"))
+                    .build();
+        }
+        return Response.ok(product).build();
     }
 }
