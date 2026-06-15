@@ -13,6 +13,8 @@ import nl.hu.bep.shopping.model.Shop;
 import nl.hu.bep.shopping.model.Shopper;
 import nl.hu.bep.shopping.model.ShoppingList;
 
+//Voorkom loops
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 
 @Path("shopper")
