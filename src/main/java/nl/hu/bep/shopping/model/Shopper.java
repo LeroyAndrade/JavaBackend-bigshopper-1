@@ -44,6 +44,7 @@ public class Shopper implements NamedObject {
         }
         return false;
     }
+
     @JsonIgnore
     public List<ShoppingList> getAllLists() {
         return Collections.unmodifiableList(allLists);
