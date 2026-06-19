@@ -4,10 +4,7 @@ import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -49,5 +46,40 @@ public class PersonResource {
                     .build();
         }
          return Response.ok(allListsFromPerson).build();
+    }
+
+
+//    http://localhost:8082/restservices/shopper/addShopper/
+//    {
+//        "name": "Leroy"
+//    }
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("addShopper")
+    public Response addShopper(Map<String, String> body) {
+
+        String name = body.get("name");
+
+        Shopper existingShopper = null;
+
+        for (Shopper s : Shopper.getAllShoppers()) {
+            if (s.getName().equals(name)) {
+                existingShopper = s;
+                break;
+            }
+        }
+
+        if (existingShopper != null) {
+            return Response.status(Response.Status.CONFLICT)
+                    .entity(Map.of("error", "Shopper bestaat al"))
+                    .build();
+        }
+
+        Shopper shopper = new Shopper(name);
+
+        return Response.status(Response.Status.CREATED)
+                .entity(shopper)
+                .build();
     }
 }

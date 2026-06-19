@@ -171,4 +171,14 @@ public class ListResource {
 
         return Response.ok(shoppingList).build();
     }
+
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("boodschappenlijstReset")
+    public Response boodschappenlijstReset() {
+
+    }
+
 }
