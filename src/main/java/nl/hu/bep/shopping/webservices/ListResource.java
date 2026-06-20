@@ -176,9 +176,19 @@ public class ListResource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("boodschappenlijstReset")
-    public Response boodschappenlijstReset() {
+    @Path("boodschappenlijstReset/{listName}")
+    public Response boodschappenlijstReset(@PathParam("listName") String listName) {
+        ShoppingList shoppingList = Shop.getShop().getShoppingListByName(listName);
 
+        if (shoppingList == null) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(Map.of("error", "Boodschappenlijst niet gevonden"))
+                    .build();
+        }
+
+        shoppingList.reset();
+
+        return Response.ok(shoppingList).build();
     }
 
 }

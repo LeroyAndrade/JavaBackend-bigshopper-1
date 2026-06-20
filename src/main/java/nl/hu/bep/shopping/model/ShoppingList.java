@@ -44,4 +44,9 @@ public class ShoppingList implements NamedObject {
     public static List<ShoppingList> getAllLists() {
         return Collections.unmodifiableList(allLists);
     }
+
+//voor de PUT in ListResource.java
+    public void reset() {
+        listItems.clear();
+    }
 }
