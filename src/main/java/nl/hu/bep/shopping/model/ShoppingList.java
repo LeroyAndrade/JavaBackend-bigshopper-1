@@ -37,6 +37,14 @@ public class ShoppingList implements NamedObject {
         return name;
     }
 
+    public void setOwner(Shopper owner) {
+        this.owner = owner;
+    }
+
+    public void setName(String newName) {
+        this.name = name;
+    }
+
     public Shopper getOwner() {
         return owner;
     }

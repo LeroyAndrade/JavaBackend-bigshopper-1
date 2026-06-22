@@ -8,11 +8,14 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import nl.hu.bep.shopping.model.Product;
 import nl.hu.bep.shopping.model.Shop;
 import nl.hu.bep.shopping.model.Shopper;
 import nl.hu.bep.shopping.model.ShoppingList;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +27,7 @@ public class PersonResource {
     public Response getShoppers() {
         Shop shop = Shop.getShop();
 
-        if (shop == null){
+        if (shop == null) {
             return Response.status(Response.Status.NOT_FOUND)
                     .entity(Map.of("error", "ShoppingLists not found"))
                     .build();
@@ -40,16 +43,16 @@ public class PersonResource {
 
         List<ShoppingList> allListsFromPerson = shop.getListFromPerson(name); //warning: might return null!
 
-        if (allListsFromPerson == null){
+        if (allListsFromPerson == null) {
             return Response.status(Response.Status.NOT_FOUND)
                     .entity(Map.of("Error", "No owner with that name appearantly"))
                     .build();
         }
-         return Response.ok(allListsFromPerson).build();
+        return Response.ok(allListsFromPerson).build();
     }
 
 
-//    http://localhost:8082/restservices/shopper/addShopper/
+    //    http://localhost:8082/restservices/shopper/addShopper/
 //    {
 //        "name": "Leroy"
 //    }
@@ -83,3 +86,4 @@ public class PersonResource {
                 .build();
     }
 }
+

@@ -116,7 +116,6 @@ public class ListResource {
     }
 
 
-
 //    Add product, wijzig de JSON inhoud bijvoorbeeld met +=1
 //    http://localhost:8082/restservices/list/addProduct/initialList
 //    http://localhost:8082/restservices/list/addProduct/anotherList
@@ -126,7 +125,7 @@ public class ListResource {
 //        "amount": 1
 //}
 
-//    Ik maak een nieuwe ShoppingList voor een shopper die al bestaat.
+    //    Ik maak een nieuwe ShoppingList voor een shopper die al bestaat.
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -173,6 +172,9 @@ public class ListResource {
     }
 
 
+    //   http://localhost:8082/restservices/list/boodschappenlijstReset/initialList
+    //    http://localhost:8082/restservices/list/addProduct/initialList
+
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -186,9 +188,118 @@ public class ListResource {
                     .build();
         }
 
+
         shoppingList.reset();
 
         return Response.ok(shoppingList).build();
     }
 
+
+    //Patch voor de shopperProduct aanpassen
+// http://localhost:8082/restservices/shopper/patchCustomername/Dum-Dum
+    @PATCH
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("patchCustomername/{oldName}")
+    public Response patchCustomerProduct(@PathParam("oldName") String oldName, Map<String, String> brunoBody) {
+
+        Shopper shopperName = null;
+        List<ShoppingList> shoppingPersons = Shop.getShop().getAllShoppingLists();
+
+        String newName = brunoBody.get("name");
+
+        ShoppingList gevondenLijst = null;
+
+
+        for (ShoppingList s : shoppingPersons) {
+            if (s.getName().equals(oldName)) {
+                gevondenLijst = s;
+                shopperName = s.getOwner();
+                System.out.println(s);
+                System.out.println(s.getClass().getName());
+                break;
+            }
+        }
+
+        if (gevondenLijst == null) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(Map.of("Error", "Boodschappenlijst is niet gevonden"))
+                    .build();
+        }
+
+        gevondenLijst.setName(brunoBody.get("name"));
+
+        return Response.ok(shopperName)
+                .build();
+    }
+
+
+
+
+
+//Patch voor de shopperProduct aanpassen
+//    http://localhost:8082/restservices/list/patchOwner/initialList
+
+//    {
+//        "name": "anotherList",
+//            "owner": {
+//        "name": "Andrade Leroy"
+//        }
+//    }
+    @PATCH
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("patchOwner/{oldCustomerName}")
+    public Response patchCustomer(@PathParam("oldCustomerName") String oldCustomerName, Map<String, Object> brunoBody) {
+
+        ShoppingList gevondenLijst = null;
+        List<ShoppingList> shoppingPersons = Shop.getShop().getAllShoppingLists();
+
+        for (ShoppingList s : shoppingPersons) {
+            if (s.getName().equals(oldCustomerName)) {
+                gevondenLijst = s;
+                break;
+            }
+        }
+
+        if (gevondenLijst == null) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(Map.of("Error", "Boodschappenlijst is niet gevonden"))
+                    .build();
+        }
+
+
+        Map<String, String> owner = (Map<String, String>) brunoBody.get("owner");
+
+        if (owner == null) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(Map.of("Error", "Boodschappenlijst is niet gevonden"))
+                    .build();
+        }
+
+
+        String newOwner = owner.get("name");
+        Shopper shopperName = null;
+
+        for (Shopper s : Shop.getShop().getAllPersons()){
+            if (s.getName().equals(newOwner)) {
+                shopperName = s;
+                break;
+            }
+        }
+
+        if (shopperName == null) {
+            shopperName = new Shopper(newOwner);
+        }
+
+        gevondenLijst.setOwner(shopperName);
+        shopperName.addList(gevondenLijst);
+
+
+        return Response.ok(gevondenLijst)
+                .build();
+    }
 }
+
+
+

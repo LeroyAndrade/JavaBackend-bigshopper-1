@@ -45,6 +45,10 @@ public class Shopper implements NamedObject {
         return false;
     }
 
+    public void setBoodschappenlijstNaam(String name){
+        this.name = name;
+    }
+
     @JsonIgnore
     public List<ShoppingList> getAllLists() {
         return Collections.unmodifiableList(allLists);

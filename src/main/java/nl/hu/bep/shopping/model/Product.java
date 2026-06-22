@@ -34,4 +34,9 @@ public class Product implements NamedObject {
     public int hashCode() {
         return Objects.hash(name);
     }
+
+//    Voor de PATCH. omdat name een private is.
+    public void setName(String name) {
+        this.name = name;
+    }
 }
