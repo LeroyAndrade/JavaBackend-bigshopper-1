@@ -1,0 +1,15 @@
+info:
+  name: Patch / update name
+  type: http
+  seq: 8
+
+http:
+  method: PATCH
+  url: http://localhost:8082/restservices/shopper/patchName/initialList
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -24,6 +24,13 @@ public class MyServletContextListener implements ServletContextListener {
         il.addItem(new Product("Cola Zero"), 4);
         il.addItem(new Product("Toiletpapier 6stk"), 1);
         al.addItem(new Product("Paracetamol 30stk"), 3);
+
+
+// Maak user aan - JWT testgebruikers
+        new Shopper("leroy", "password123", "user");
+        new Shopper("admin", "admin123", "admin");
+        System.out.println("User Leroy & admin aangemaakt");
+
     }
 
     @Override

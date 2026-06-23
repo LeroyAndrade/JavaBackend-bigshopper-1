@@ -1,0 +1,23 @@
+info:
+  name: Create ShoppingList - JWT
+  type: http
+  seq: 12
+
+http:
+  method: POST
+  url: http://localhost:8082/restservices/list/createShoppingList/leroy
+  body:
+    type: json
+    data: |-
+      {
+        "name": "WeekendBoodschappen"
+      }
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJsZXJveSIsImV4cCI6MTc4MjI1NDE3Nywicm9sZSI6InVzZXIifQ.-UK2OOjvTUTcG_yuCDGFfFErRQORTuCdeAXiLX0Qa5pBZcODebDq6s9xgGQR284FxOTNfX4-IxGX03L9JZxioA
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

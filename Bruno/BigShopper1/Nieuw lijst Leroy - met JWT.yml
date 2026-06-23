@@ -1,0 +1,26 @@
+info:
+  name: Nieuw lijst Leroy - met JWT
+  type: http
+  seq: 14
+
+http:
+  method: POST
+  url: http://localhost:8082/restservices/list/createShoppingList/leroy
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "name": "WeekendBoodschappen 2"
+      }
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJsZXJveSIsImV4cCI6MTc4MjI1NDg1OSwicm9sZSI6InVzZXIifQ.MLYz0txylvzfYZl3ZkyO32Pe10M29ToUijFUkUh6PRizzpN-YRvdtbNDJtsojubwBWfrAMQ8ZjVZ4X0-kW9_FQ
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,22 @@
+info:
+  name: AddProduct
+  type: http
+  seq: 5
+
+http:
+  method: POST
+  url: http://localhost:8082/restservices/list/addProduct/anotherList
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Toiletpapier 6stk",
+        "amount": 1
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

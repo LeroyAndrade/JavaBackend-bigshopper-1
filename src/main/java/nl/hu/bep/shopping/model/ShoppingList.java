@@ -40,7 +40,6 @@ public class ShoppingList implements NamedObject {
     public void setOwner(Shopper owner) {
         this.owner = owner;
     }
-
     public void setName(String newName) {
         this.name = name;
     }

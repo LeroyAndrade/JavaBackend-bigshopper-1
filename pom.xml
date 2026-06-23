@@ -72,12 +72,12 @@
             <version>1.1.4</version>
         </dependency>
 
-
-        <!-- <dependency>
+<!--JWT(sec) JSON Webtoken<-->
+        <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
-        </dependency> -->
+        </dependency>
 
     </dependencies>
 

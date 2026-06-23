@@ -1,5 +1,6 @@
 package nl.hu.bep.shopping.webservices;
 
+import javax.annotation.security.PermitAll;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.ws.rs.*;
@@ -12,7 +13,8 @@ import nl.hu.bep.shopping.model.Shop;
 import java.util.List;
 import java.util.Map;
 
-
+//Iedereen mag lezen welke producten er zijn
+@PermitAll
 @Path("product")
 public class ProductResource {
 

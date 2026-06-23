@@ -1,0 +1,23 @@
+info:
+  name: Patch boodschappenlijst aan
+  type: http
+  seq: 10
+
+http:
+  method: PATCH
+  url: http://localhost:8082/restservices/list/patchOwner/anotherList
+  body:
+    type: json
+    data: |-
+      {
+        "owner" : {
+          "name": "Andrade Leroy"
+        }
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
